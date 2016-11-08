@@ -1,13 +1,34 @@
-import angular from 'angular';
-import 'angular-ui-router';
-import createClient from './create-client';
-import clientList from './client-list';
+import angular  from 'angular';
+import uiRouter from 'angular-ui-router';
+import ngRedux  from 'ng-redux';
 
-const ngModule = angular.module('identity', [
-    'ui.router'
-]);
+import createClientComponent from './create-client/create-client.component';
+import clientListComponent from './client-list/client-list.component';
 
-createClient(ngModule);
-clientList(ngModule);
+import { RootReducer } from './reducers';
+
+const ngModule = angular
+    .module('identity', [
+        uiRouter,
+        ngRedux
+    ])
+    
+    .component('client-create', createClientComponent)
+    .component('client-list', clientListComponent)
+
+    .config(($stateProvider, $ngReduxProvider) => {
+
+        $stateProvider
+            .state('client-create', {
+                url: '/create-client',
+                template: '<create-client></create-client>',
+            })
+            .state('client-list', {
+                url: '/client-list',
+                template: '<client-list></client-list>'
+            });
+
+        $ngReduxProvider.createStoreWith(RootReducer);
+    });
 
 export default ngModule;
