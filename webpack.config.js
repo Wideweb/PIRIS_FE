@@ -30,10 +30,26 @@ function getDevConfig() {
                             test: /\.css$/,
                             loader: 'style!css',
                             exclude: /node_modules/
+                        },
+                        {   test: /\.scss$/, 
+                            loader: 'style!css!sass'
+                        },
+                        {   test: /\.(woff2?|ttf|eot|svg)$/,
+                            loader: 'url?limit=10000' 
+                        },
+                        {   test: /bootstrap\/dist\/js\/umd\//, 
+                            loader: 'imports?jQuery=jquery' 
                         }
                     ]
                 )
             },
+            plugins: [
+                new webpack.ProvidePlugin({
+                    jQuery: 'jquery',
+                    $: 'jquery',
+                    jquery: 'jquery'
+                })
+            ],
             devServer: {
                 contentBase: here('app'),
                 colors: true,
@@ -92,7 +108,7 @@ function getProdConfig(uglify) {
         }
     });
 
-    prodConfig.plugins = [
+    prodConfig.plugins = _.union(prodConfig.plugins, [
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.AggressiveMergingPlugin(),
@@ -103,7 +119,7 @@ function getProdConfig(uglify) {
                 to: here('dist')
             }
         ])
-    ];
+    ]);
 
     if (uglify) {
         prodConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({

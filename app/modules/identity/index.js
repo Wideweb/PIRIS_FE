@@ -13,20 +13,21 @@ const ngModule = angular
         ngRedux
     ])
     
-    .component('client-create', createClientComponent)
-    .component('client-list', clientListComponent)
+    .component('clientCreate', createClientComponent)
+    .component('clientList', clientListComponent)
 
     .config(($stateProvider, $ngReduxProvider) => {
 
         $stateProvider
             .state('client-create', {
                 url: '/create-client',
-                template: '<create-client></create-client>',
+                template: '<client-create></client-create>',
             })
             .state('client-list', {
                 url: '/client-list',
                 template: '<client-list></client-list>'
             });
+
 
         $ngReduxProvider.createStoreWith(RootReducer);
     });

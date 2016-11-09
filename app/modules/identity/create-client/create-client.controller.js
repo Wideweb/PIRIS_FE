@@ -1,6 +1,7 @@
-import { ClientActions } from '../actions/client.actions';
+import ClientActions from '../actions/client.actions';
 
 class CreateClientController {
+    
     constructor($ngRedux) {
         this.client = '';
         this.unsubscribe = $ngRedux.connect(this.mapStateToThis, ClientActions)(this);

@@ -1,13 +1,12 @@
 import template from './client-list.html';
 import controller from './client-list.controller';
-import './client-list.scss';
+import './client-list.css';
 
 let clientListComponent = {
   restrict: 'E',
   bindings: {},
   template,
-  controller,
-  controllerAs: 'vm'
+  controller
 };
 
 export default clientListComponent;
