@@ -1,9 +1,13 @@
 import { CLIENTS } from '../constants/clients';
 
-const initialState = [];
+const initialState = Map({
+    hasError: false,
+    isLoading: false,
+    dataset: []
+});
 
 export function ClientsReducer(state = initialState, action) {
-    switch(action.type) {
+    switch (action.type) {
         case CLIENTS.ADD_CLIENT:
             return [...state, action.payload];
         case CLIENTS.REMOVE_CLIENT:

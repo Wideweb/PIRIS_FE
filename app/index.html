@@ -8,12 +8,11 @@
 <body>
     <div ng-app="app">
         <div id="wrap">
-            <navigation></navigation>
-
-            <div ui-view></div>
+            <div id="main">
+                <navigation></navigation>
+                <div ui-view></div>
+            </div>
         </div>
-
-        <footer></footer>
     </div>
     <script src="bundle.js"></script>
 </body>

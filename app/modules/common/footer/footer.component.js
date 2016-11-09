@@ -8,3 +8,5 @@ let footerComponent = {
     template,
     controller
 }
+
+export default footerComponent;

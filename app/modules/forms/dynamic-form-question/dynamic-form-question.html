@@ -1,0 +1,25 @@
+<ng-form name="form" class="form-group">
+    <div class="form-group">
+        <label for="{{ $ctrl.question.key }}">{{ $ctrl.question.label }}</label>
+            <div ng-switch="$ctrl.question.controlType">
+                
+                <input ng-switch-when="1"
+                        class="form-control" 
+                        name="{{ $ctrl.question.key }}"
+                        id="{{ $ctrl.question.key }}"
+                        ng-model="$ctrl.ngModel"
+                        ng-required="$ctrl.question.required">
+
+                <select ng-switch-when="2" 
+                        class="form-control"
+                        name="{{ $ctrl.question.key }}"
+                        id="{{ $ctrl.question.key }}"
+                        ng-model="$ctrl.ngModel"
+                        ng-required="$ctrl.question.required">
+                    <option ng-repeat="opt in $ctrl.question.options" value="{{ opt.key }}">{{ opt.value }}</option>
+                </select>
+
+            </div> 
+        <div class="error-message" ng-if="form[$ctrl.question.key].$error.required">{{ $ctrl.question.label }} is required</div>
+    </div> 
+</ng-form>
