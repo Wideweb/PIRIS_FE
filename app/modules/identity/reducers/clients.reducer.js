@@ -2,7 +2,6 @@ import { Map, fromJS } from 'immutable';
 import _ from 'lodash';
 
 import { clientActionTypes, CLIENT_REQUEST, CLIENT_FAILURE, CLIENT_SUCCESS, CLIENT_LIST_SUCCESS } from '../actions/client-action-types';
-import EventEmitter from './events.js';
 
 const initialState = Map({
     client: {},
