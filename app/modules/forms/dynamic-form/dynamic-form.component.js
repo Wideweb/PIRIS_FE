@@ -7,7 +7,8 @@ let dynamicFormComponent = {
     bindings: {
         questions: '<',
         ngModel: '=',
-        onSubmit: '&'
+        onSubmit: '&',
+        disabled: '<?'
     },
     template,
     controller

@@ -5,8 +5,8 @@ import { onHttpRequest, onHttpRequestSuccess, onHttpRequestFail } from './http-a
 export const CALL_API = Symbol('Call API');
 
 export default function httpMiddleware($http, $timeout) {
-    function callApi(endpoint) {
-        return $http.get(endpoint)
+    function callApi(request) {
+        return $http(request)
             .then(res => res.data);
     }
 
@@ -17,16 +17,16 @@ export default function httpMiddleware($http, $timeout) {
             return next(action);
         }
 
-        let { endpoint } = callAPI;
+        let { payload } = callAPI;
         const { types, bailout } = callAPI;
 
-        if (typeof endpoint === 'function') {
-            endpoint = endpoint(store.getState());
+        if (typeof payload === 'function') {
+            payload = payload(store.getState());
         }
 
-        if (typeof endpoint !== 'string') {
+        /*if (typeof payload !== 'string') {
             throw new Error('Specify a string endpoint URL.');
-        }
+        }*/
 
         if (!Array.isArray(types) || types.length !== 3) {
             throw new Error('Expected an array of three action types: [requestType, successType, failureType]');
@@ -55,20 +55,20 @@ export default function httpMiddleware($http, $timeout) {
         next(onHttpRequest());
         next(actionWith({ type: requestType }));
 
-        return callApi(endpoint)
+        return callApi(payload)
             .then(
             response => {
                 next(onHttpRequestSuccess());
                 next(actionWith({
                     payload: response,
                     type: successType
-                }))
+                }));
             },
             error => {
                 next(onHttpRequestFail());
                 next(actionWith({
                     type: failureType,
-                    error: error.message || 'Something bad happened'
+                    payload: error.data
                 }))
             }
             );

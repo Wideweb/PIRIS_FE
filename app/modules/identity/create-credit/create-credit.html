@@ -1,0 +1,116 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <h1 class="page-header">Client Credit Form</h1>
+        </div>
+        <div class="row">
+            <div class="list-group">
+                <div class="list-group-item list-group-item-action list-group-item-danger" ng-repeat="error in $ctrl.errors">
+                    {{ error }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <form name="form" ng-submit="$ctrl.onTrySubmit(form)" novalidate ng-class="form.$submitted ? 'submitted' : 'not-submitted'">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="client">Client</label>
+                                <piris-select
+                                        name="client"
+                                        url="{{ $ctrl.urls.getClientLookups }}"
+                                        id="client"
+                                        ng-model="$ctrl.credit.clientId"
+                                        required="true">
+                                </piris-select>
+                        <div class="error-message" ng-if="form.client.$error.required">Client is required</div>
+                    </div>
+                </div>
+                <div class="form-row" ng-if="$ctrl.canChooseClientAccount()">
+                    <div class="form-group">
+                        <label for="masterClientAccount">Master Client Account</label>
+                                <piris-select
+                                        name="masterClientAccount"
+                                        url="{{ $ctrl.getClientAccountLookupsUrl(3) }}"
+                                        id="masterClientAccount"
+                                        ng-model="$ctrl.credit.masterClientAccountId"
+                                        required="true">
+                                </piris-select>
+                        <div class="error-message" ng-if="form.masterClientAccount.$error.required">Client Account is required</div>
+                    </div>
+                </div>
+                <div class="form-row" ng-if="$ctrl.credit.currencyId">
+                    <div class="form-group">
+                        <label for="currency">Currency</label>
+                                <piris-select
+                                        name="currency"
+                                        url="{{ $ctrl.urls.getCurrencyLookups }}"
+                                        id="currency"
+                                        ng-model="$ctrl.credit.currencyId"
+                                        required="true"
+                                        disabled="true">
+                                </piris-select>
+                        <div class="error-message" ng-if="form.currency.$error.required">Currency is required</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="creditType">Credit Type</label>
+                                <piris-select
+                                        name="creditType"
+                                        url="{{ $ctrl.urls.getCreditTypeLookups }}"
+                                        id="creditType"
+                                        ng-model="$ctrl.credit.creditTypeId"
+                                        dis
+                                        required="true">
+                                </piris-select>
+                        <div class="error-message" ng-if="form.creditType.$error.required">Credit Type is required</div>
+                    </div>
+                </div>
+                <div class="form-row" ng-if="$ctrl.canChooseCreditPlan()">
+                    <div class="form-group">
+                        <label for="creditPlan">Credit Plan</label>
+                                <piris-select
+                                        name="creditPlan"
+                                        url="{{ $ctrl.getCreditPlanLookupsUrl() }}"
+                                        id="creditPlan"
+                                        ng-model="$ctrl.credit.creditPlanId"
+                                        required="true">
+                                </piris-select>
+                        <div class="error-message" ng-if="form.creditPlan.$error.required">Credit Plan is required</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="amount">Amount</label>
+                                <input
+                                        class="form-control" 
+                                        name="amount"
+                                        id="amount"
+                                        ng-model="$ctrl.credit.amount"
+                                        ng-required="true"
+                                        ng-pattern="/^\d+(\.\d+)?$/">
+                        <div class="error-message" ng-if="form.amount.$error.required">Amount is required</div>
+                        <div class="error-message" ng-if="form.amount.$error.pattern">wrong format</div>
+                    </div>
+                </div>
+                 <div class="form-row">
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                                <input
+                                    class="form-control" 
+                                    type="date"
+                                    date-input
+                                    name="startDate"
+                                    id="startDate"
+                                    ng-model="$ctrl.credit.startDate">
+                        <div class="error-message" ng-if="form.startDate.$error.required">Start date is required</div>
+                        <div class="error-message" ng-if="form.startDate.$error.pattern">wrong format</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

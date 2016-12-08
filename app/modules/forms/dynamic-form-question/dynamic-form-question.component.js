@@ -6,7 +6,8 @@ let dynamicFormQuestionComponent = {
     restrict: 'E',
     bindings: {
         question: "<",
-        ngModel: '='
+        ngModel: '=',
+        disabled: '<?'
     },
     controller,
     template

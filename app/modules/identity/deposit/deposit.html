@@ -1,0 +1,108 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <h1 class="page-header">Client Deposit</h1>
+        </div>
+        <div class="row">
+            <form name="form" novalidate>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="client">Client</label>
+                            <piris-select
+                                    name="client"
+                                    url="{{ $ctrl.urls.getClientLookups }}"
+                                    id="client"
+                                    ng-model="$ctrl.deposit.clientId"
+                                    disabled="true">
+                            </piris-select>
+                     </div>
+                </div>
+                <div class="form-row" ng-if="$ctrl.deposit.clientId">
+                    <div class="form-group">
+                        <label for="masterClientAccount">Master Client Account</label>
+                            <piris-select
+                                    name="masterClientAccount"
+                                    url="{{ $ctrl.getClientAccountLookupsUrl(3) }}"
+                                    id="masterClientAccount"
+                                    ng-model="$ctrl.deposit.masterClientAccountId"
+                                    disabled="true">
+                            </piris-select>
+                     </div>
+                </div>
+                <div class="form-row" ng-if="$ctrl.deposit.clientId">
+                    <div class="form-group">
+                        <label for="clientAccount">Client Account</label>
+                            <piris-select
+                                    name="clientAccount"
+                                    url="{{ $ctrl.getClientAccountLookupsUrl() }}"
+                                    id="clientAccount"
+                                    ng-model="$ctrl.deposit.clientAccountId"
+                                    required="true"
+                                    disabled="true">
+                            </piris-select>
+                     </div>
+                </div>
+                <div class="form-row" ng-if="$ctrl.deposit.currencyId">
+                    <div class="form-group">
+                        <label for="currency">Currency</label>
+                            <piris-select
+                                    name="currency"
+                                    url="{{ $ctrl.urls.getCurrencyLookups }}"
+                                    id="currency"
+                                    ng-model="$ctrl.deposit.currencyId"
+                                    disabled="true">
+                            </piris-select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="depositType">Deposit Type</label>
+                            <piris-select
+                                    name="depositType"
+                                    url="{{ $ctrl.urls.getDepositTypeLookups }}"
+                                    id="depositType"
+                                    ng-model="$ctrl.deposit.depositTypeId"
+                                    disabled="true">
+                            </piris-select>
+                    </div>
+                </div>
+                <div class="form-row" ng-if="$ctrl.canChooseDepositPlan()">
+                    <div class="form-group">
+                        <label for="depositPlan">Deposit Plan</label>
+                            <piris-select
+                                    name="depositPlan"
+                                    url="{{ $ctrl.getDepositPlanLookupsUrl() }}"
+                                    id="depositPlan"
+                                    ng-model="$ctrl.deposit.depositPlanId"
+                                    disabled="true">
+                            </piris-select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="amount">Amount</label>
+                            <input
+                                class="form-control" 
+                                name="amount"
+                                id="amount"
+                                ng-model="$ctrl.deposit.amount"
+                                disabled="true">
+                      </div>
+                </div>
+                 <div class="form-row">
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                            <input
+                                class="form-control" 
+                                type="date"
+                                date-input
+                                name="startDate"
+                                id="startDate"
+                                ng-model="$ctrl.deposit.startDate"
+                                disabled="true">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

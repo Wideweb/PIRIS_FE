@@ -2,13 +2,22 @@ import ClientActions from '../actions/client.actions';
 
 class CreateClientController {
     
-    constructor($ngRedux, clientService) {
+    constructor(clientService, $state, utils) {
         this.client = {};
         this.questions = [];
+        this.utils = utils
 
         this.clientService = clientService;
-        this.unsubscribe = $ngRedux.connect(this.mapStateToThis, ClientActions)(this);
+        this.$state = $state;
+        
+        this.fetchClientForm();
 
+        if($state.params.id){
+            this.fetchClient();
+        }
+    }
+
+    fetchClientForm() {
         this.clientService
             .getClientFormQuestions()
             .then(response => {
@@ -16,19 +25,29 @@ class CreateClientController {
             });
     }
 
+    fetchClient() {
+        this.clientService
+            .getClient(this.$state.params.id)
+            .then(response => {
+                this.client = response.data;
+            });
+    }
+
     submitClient() {
-        this.addClient(this.client);
-        this.client = {};
+        this.errors = [];
+        
+        this.clientService
+            .saveClient(this.client)
+            .then(response => this.utils.showSuccess())
+            .catch(error => {
+                this.errors = error.data[''];
+                this.utils.showError();
+            });
     }
 
-    $onDestroy() {
-        this.unsubscribe();
-    }
-
-    mapStateToThis(state) {
-        return {
-            clients: state.clients
-        };
+    createClient(){
+        this.client.id = 0;
+        this.submitClient();
     }
 }
 

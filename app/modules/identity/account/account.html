@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1>Account</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="list-group">
+                <div class="row list-group-item">
+                    <div class="col-sm-4">
+                        <h4 class="list-group-item-heading">Time</h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4 class="list-group-item-heading">Amount</h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4 class="list-group-item-heading">Description</h4>
+                    </div>
+                </div>
+
+                <a class="row list-group-item list-group-item-action" 
+                    ng-repeat="transaction in $ctrl.transactions track by transaction.id"
+                    ng-class="transaction.amount < 0 ? 'list-group-item-danger' : 'list-group-item-success'">
+                    <div class="col-sm-4">
+                        <span class="list-group-item-text">{{ transaction.time | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="list-group-item-text">{{ transaction.amount }}</span>
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="list-group-item-text">{{ transaction.description }}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

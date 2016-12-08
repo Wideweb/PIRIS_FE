@@ -1,0 +1,114 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="form" ng-submit="$ctrl.closeBankDay()" novalidate>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Bank Date: </label>
+                        <span>{{ $ctrl.bankDate | date:'dd/MM/yyyy'}}</span><br> 
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Close bank day</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1>Bank Accounts</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="list-group">
+                <div class="row list-group-item">
+                    <div class="col-sm-4">
+                        <h4 class="list-group-item-heading">Account Plan</h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4 class="list-group-item-heading">Amount</h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4 class="list-group-item-heading">Number</h4>
+                    </div>
+                </div>
+
+                <a class="row list-group-item list-group-item-action" 
+                    ng-repeat="bankAccount in $ctrl.bankAccounts track by bankAccount.id"
+                    ng-click="$ctrl.goToAccount(bankAccount.id)">
+                    <div class="col-sm-4">
+                        <span class="list-group-item-text">{{ bankAccount.accountPlanName }}</span>
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="list-group-item-text">{{ bankAccount.amount }}</span>
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="list-group-item-text">{{ bankAccount.number }}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <canvas 
+                id="line" 
+                class="chart chart-line" 
+                chart-data="$ctrl.data"
+                chart-labels="$ctrl.labels" 
+                chart-series="$ctrl.series" 
+                chart-options="$ctrl.options"
+                chart-dataset-override="$ctrl.datasetOverride">
+            </canvas> 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1>Client Accounts</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="list-group">
+                <div class="row list-group-item">
+                    <div class="col-sm-3">
+                        <h4 class="list-group-item-heading">Account Plan</h4>
+                    </div>
+                    <div class="col-sm-3">
+                        <h4 class="list-group-item-heading">Amount</h4>
+                    </div>
+                    <div class="col-sm-3">
+                        <h4 class="list-group-item-heading">Number</h4>
+                    </div>
+                    <div class="col-sm-3">
+                        <h4 class="list-group-item-heading">Client</h4>
+                    </div>
+                </div>
+
+                <a class="row list-group-item list-group-item-action"
+                    ng-repeat="clientAccount in $ctrl.clientAccounts track by clientAccount.id"
+                    ng-click="$ctrl.goToAccount(clientAccount.accountId)">
+                    <div class="col-sm-3">
+                        <span class="list-group-item-text">{{ clientAccount.accountPlanName }}</span>
+                    </div>
+                    <div class="col-sm-3">
+                        <span class="list-group-item-text">{{ clientAccount.amount }}</span>
+                    </div>
+                    <div class="col-sm-3">
+                        <span class="list-group-item-text">{{ clientAccount.number }}</span>
+                    </div>
+                    <div class="col-sm-3">
+                        <span class="list-group-item-text">{{ clientAccount.client }}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

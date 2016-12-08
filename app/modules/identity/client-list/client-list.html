@@ -8,9 +8,44 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <ul class="list-group">
-                <li ng-repeat="client in $ctrl.clients" class="list-group-item">{{ client }}</li>
-            </ul>
+            <div class="list-group">
+                <div class="row list-group-item">
+                    <div class="col-sm-2">
+                        <h4 class="list-group-item-heading">First Name</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <h4 class="list-group-item-heading">Last Name</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <h4 class="list-group-item-heading">Home Phone</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <h4 class="list-group-item-heading">Mobile Phone</h4>
+                    </div>
+                </div>
+
+                <a class="row list-group-item list-group-item-action" ng-repeat="client in $ctrl.clients">
+                    <div class="col-sm-2">
+                        <span class="list-group-item-text">{{ client.firstName }}</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="list-group-item-text">{{ client.lastName }}</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="list-group-item-text">{{ client.homePhone }}</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="list-group-item-text">{{ client.mobilePhone }}</span>
+                    </div>
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-2 actions">
+                        <button type="button" class="btn btn-default" ng-click="$ctrl.editClient(client)">
+                            <span class="glyphicon glyphicon glyphicon-pencil"></span>
+                        </button>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </div>

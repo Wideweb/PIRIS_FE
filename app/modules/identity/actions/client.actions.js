@@ -1,31 +1,66 @@
-import { CLIENTS } from '../constants/clients';
+import { clientActionTypes, CLIENT_REQUEST, CLIENT_FAILURE, CLIENT_SUCCESS, CLIENT_LIST_SUCCESS } from './client-action-types';
 import { CALL_API } from '../../common/middleware/http/http-middleware';
+import urls from '../../common/constants/urls';
 
-export const CLIENT_REQUEST = '@@reduxNgHttpMiddleware/clientRequest';
-export const CLIENT_SUCCESS = '@@reduxNgHttpMiddleware/clientSuccess';
-export const CLIENT_FAILURE = '@@reduxNgHttpMiddleware/clientFailure';
-
-export function getClient() {
-  return {
-    [CALL_API]: {
-      types: [CLIENT_REQUEST, CLIENT_SUCCESS, CLIENT_FAILURE],
-      endpoint: `/src/data/stats-playoffs.json`
-    }
-  };
-}
-
-function addClient(client){
+function fetchClient(id) {
     return {
-        type: CLIENTS.ADD_CLIENT,
-        payload: client
-    }
-}
-
-function removeClient(index){
-    return {
-        type: CLIENTS.REMOVE_CLIENT,
-        payload: index
+        [CALL_API]: {
+            types: [CLIENT_REQUEST, CLIENT_SUCCESS, CLIENT_FAILURE],
+            payload: {
+                url: urls.client,
+                method: 'GET',
+                params: {
+                    id: id
+                }
+            }
+        }
     };
 }
 
-export default { addClient, removeClient };
+function fetchAllClients() {
+    return {
+        [CALL_API]: {
+            types: [CLIENT_REQUEST, CLIENT_LIST_SUCCESS, CLIENT_FAILURE],
+            payload: {
+                url: urls.getClientList,
+                method: 'GET'
+            }
+        }
+    };
+}
+
+function saveClient(client) {
+    return {
+        [CALL_API]: {
+            types: [CLIENT_REQUEST, CLIENT_SUCCESS, CLIENT_FAILURE],
+            payload: {
+                url: urls.client,
+                method: 'POST',
+                data: client
+            }
+        }
+    }
+}
+
+function removeClient(id) {
+    return {
+        [CALL_API]: {
+            types: [CLIENT_REQUEST, clientActionTypes.ADD_CLIENT, CLIENT_FAILURE],
+            payload: {
+                url: urls.client,
+                method: 'POST',
+                data: {
+                    id: id
+                }
+            }
+        }
+    };
+}
+
+function clearCurrentClient() {
+    return {
+        type: clientActionTypes.CLEARE_CURRENT_CLIENT
+    }
+}
+
+export default { fetchClient, fetchAllClients, saveClient, removeClient, clearCurrentClient };

@@ -2,18 +2,22 @@ import ClientActions from '../actions/client.actions';
 
 class ClientListController {
 
-    constructor($ngRedux) {
-        this.unsubscribe = $ngRedux.connect(this.mapStateToThis, ClientActions)(this);
+    constructor($state, clientService) {
+        this.clients = [];
+        this.$state = $state;
+        this.clientService = clientService;
+        
+        this.fetchAllClients();
     }
 
-    $onDestroy() {
-        this.unsubscribe();
+    editClient(client){
+        this.$state.go('client-create', { id: client.id });
     }
 
-    mapStateToThis(state) {
-        return {
-            clients: state.clients
-        };
+    fetchAllClients(){
+        this.clientService.getAllClients().then(response => {
+            this.clients = response.data;
+        })
     }
 }
 

@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <h1 class="page-header">Client Account Form</h1>
+        </div>
+        <div class="row">
+            <div class="list-group">
+                <div class="list-group-item list-group-item-action list-group-item-danger" ng-repeat="error in $ctrl.errors">
+                    {{ error }}
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="$ctrl.questions">
+            <dynamic-form 
+                questions="$ctrl.questions" 
+                ng-model="$ctrl.clientAccount"
+                on-submit="$ctrl.submitClientAccount()"
+                disabled="$ctrl.disableForm"></dynamic-form>
+        </div>
+    </div>
+</div>
