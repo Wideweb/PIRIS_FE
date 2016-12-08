@@ -82,8 +82,7 @@ const ngModule = angular
             .state('not-found', {
                 url: '/not-found',
                 template: '<not-found></not-found>'
-            });;
-
+            });
 
         $ngReduxProvider.createStoreWith(RootReducer, ['httpMiddleware']);
     });
